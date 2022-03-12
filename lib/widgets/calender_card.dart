@@ -60,6 +60,7 @@ class CalenderCard extends StatelessWidget {
                               height: 12,
                               decoration: BoxDecoration(
                                 color: kMainColor,
+                                borderRadius: BorderRadius.circular(2),
                                 boxShadow: const [
                                   BoxShadow(
                                     color: Color(0xffDCDCDC),

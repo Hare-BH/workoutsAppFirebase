@@ -13,7 +13,8 @@ class HomePage extends StatefulWidget {
   _SetupScreenState createState() => _SetupScreenState();
 }
 
-class _SetupScreenState extends State<HomePage> {
+class _SetupScreenState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   bool pressed = false;
 
   final buttons = const [
@@ -93,10 +94,10 @@ class _SetupScreenState extends State<HomePage> {
                 ),
               ),
             ),
-            const BotomNav(),
           ],
         ),
       ),
+      bottomNavigationBar: const BottomNav(index: 0),
     );
   }
 }
