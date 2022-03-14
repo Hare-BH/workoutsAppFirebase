@@ -5,7 +5,10 @@ import 'package:invert_colors/invert_colors.dart';
 class WorkoutCard extends StatelessWidget {
   const WorkoutCard({
     Key? key,
+    required this.title,
   }) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class WorkoutCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Arms - Intermediate',
+            title,
             textAlign: TextAlign.left,
             style: kCardText,
           ),

@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
-import '../widgets/bottom_nav.dart';
+import 'package:training_app/models/workout.dart';
+import '../models/workouts_box.dart';
 import '../widgets/calender_card.dart';
 import '../widgets/category_button.dart';
 import '../widgets/next_workout_card.dart';
 import '../widgets/workout_card.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  @override
-  _SetupScreenState createState() => _SetupScreenState();
-}
-
-class _SetupScreenState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  bool pressed = false;
+  final bool pressed = false;
 
   final buttons = const [
     Padding(
@@ -31,15 +28,9 @@ class _SetupScreenState extends State<HomePage>
     CategoryButton(title: 'Shoulders')
   ];
 
-  final workouts = [
-    const WorkoutCard(),
-    const WorkoutCard(),
-    const WorkoutCard(),
-    const WorkoutCard(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    Box workoutsBox = Provider.of<WorkoutsBox>(context).workoutsBox;
     return Scaffold(
       backgroundColor: kWhiteBackground,
       body: SafeArea(
@@ -58,27 +49,11 @@ class _SetupScreenState extends State<HomePage>
             ),
             SizedBox(
               height: 40,
-              child: ListView.builder(
-                  physics: const ScrollPhysics(
-                      parent: BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics())),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: buttons.length,
-                  itemBuilder: (context, index) {
-                    return buttons[index];
-                  }),
+              child: buildButtons(),
             ),
             SizedBox(
               height: 190,
-              child: ListView.builder(
-                  physics: const ScrollPhysics(
-                      parent: BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics())),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: workouts.length,
-                  itemBuilder: (context, index) {
-                    return workouts[index];
-                  }),
+              child: buildWorkoutCards(workoutsBox),
             ),
             Expanded(
               child: Container(
@@ -87,9 +62,17 @@ class _SetupScreenState extends State<HomePage>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Expanded(child: NextWorkoutCard()),
-                    Expanded(child: CalenderCard()),
+                  children: [
+                    const Expanded(child: NextWorkoutCard()),
+                    Expanded(
+                      child: GestureDetector(
+                          onTap: () {
+                            print('sss');
+                            Provider.of<WorkoutsBox>(context, listen: false)
+                                .deleteAll();
+                          },
+                          child: const CalenderCard()),
+                    ),
                   ],
                 ),
               ),
@@ -97,7 +80,34 @@ class _SetupScreenState extends State<HomePage>
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNav(index: 0),
     );
+  }
+
+  ListView buildWorkoutCards(Box<dynamic> workoutsBox) {
+    return ListView.builder(
+        physics: const ScrollPhysics(
+            parent:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics())),
+        scrollDirection: Axis.horizontal,
+        itemCount: workoutsBox.length,
+        itemBuilder: (context, index) {
+          if (workoutsBox.length == 0) {
+            return const Center(child: Text('No workouts'));
+          } else {
+            return WorkoutCard(title: workoutsBox.getAt(index).title);
+          }
+        });
+  }
+
+  ListView buildButtons() {
+    return ListView.builder(
+        physics: const ScrollPhysics(
+            parent:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics())),
+        scrollDirection: Axis.horizontal,
+        itemCount: buttons.length,
+        itemBuilder: (context, index) {
+          return buttons[index];
+        });
   }
 }

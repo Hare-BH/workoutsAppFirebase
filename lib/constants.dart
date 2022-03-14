@@ -4,6 +4,8 @@ Color kWhiteBackground = const Color(0xffF8F8F8);
 Color kBlueAccent = const Color(0xff004985);
 Color kGrey = const Color(0xff0C2D48);
 Color kMainColor = const Color(0xff0C2D48);
+Color kGreen = const Color(0xff52FF00);
+
 const colors = [
   Color(0xffF8F8F8),
   Color(0xff313131),
