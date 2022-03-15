@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
 import 'package:training_app/models/exercises_provider.dart';
 import '../models/exercise.dart';
-import '../models/workouts_box.dart';
+import '../models/workouts_box_provider.dart';
 
 class AddExercise extends StatelessWidget {
   const AddExercise({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class AddExercise extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               'New Exercise',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -51,7 +51,7 @@ class AddExercise extends StatelessWidget {
                 },
                 cursorColor: kMainColor,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: kMainColor,
                   fontSize: 16.0,
                 ),
@@ -83,7 +83,7 @@ class AddExercise extends StatelessWidget {
                       },
                       cursorColor: kMainColor,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: kMainColor,
                         fontSize: 16.0,
                       ),
@@ -115,7 +115,7 @@ class AddExercise extends StatelessWidget {
                       },
                       cursorColor: kMainColor,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: kMainColor,
                         fontSize: 16.0,
                       ),
@@ -147,7 +147,7 @@ class AddExercise extends StatelessWidget {
                       },
                       cursorColor: kMainColor,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: kMainColor,
                         fontSize: 16.0,
                       ),
@@ -174,7 +174,7 @@ class AddExercise extends StatelessWidget {
                 SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
                     overlays: []);
                 Exercise exercise = Exercise(title, sets, reps, rest);
-                Provider.of<ExercisesProv>(context, listen: false)
+                Provider.of<ExercisesProvider>(context, listen: false)
                     .addExercise(exercise);
                 Navigator.pop(context);
               },

@@ -38,7 +38,7 @@ class NextWorkoutCard extends StatelessWidget {
                   SizedBox(
                     height: 55,
                     width: 55,
-                    child: Image.asset('images/biceps.png'),
+                    child: Image.asset('images/arms.png'),
                   ),
                 ],
               ),

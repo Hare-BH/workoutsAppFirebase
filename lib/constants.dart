@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Color kWhiteBackground = const Color(0xffF8F8F8);
 Color kBlueAccent = const Color(0xff004985);
 Color kGrey = const Color(0xff0C2D48);
-Color kMainColor = const Color(0xff0C2D48);
+const Color kMainColor = Color(0xff0C2D48);
 Color kGreen = const Color(0xff52FF00);
 
 const colors = [
@@ -53,12 +53,6 @@ TextStyle kCardText = TextStyle(
   fontWeight: FontWeight.w600,
 );
 
-TextStyle kCardTextDark = TextStyle(
-  color: kGrey,
-  fontSize: 20,
-  fontWeight: FontWeight.w600,
-);
-
 TextStyle kCardTextDarkRegular = TextStyle(
   color: kGrey,
   fontSize: 18,
@@ -76,3 +70,9 @@ TextStyle kCardTextSmall = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w500,
 );
+
+TextStyle kHeaderText =
+    TextStyle(color: kGrey, fontSize: 36, fontWeight: FontWeight.w600);
+
+const TextStyle kQuoteStyle =
+    TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300);

@@ -10,8 +10,10 @@ class ExerciseCard extends StatelessWidget {
     Key? key,
     required this.edit,
     required this.exercise,
+    this.color = kMainColor,
   }) : super(key: key);
 
+  final Color color;
   final Exercise exercise;
   final bool edit;
 
@@ -21,7 +23,7 @@ class ExerciseCard extends StatelessWidget {
       height: 60,
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
-          color: kMainColor,
+          color: color,
           borderRadius: BorderRadius.circular(5),
           border: Border.all(color: Colors.white, width: 2),
           boxShadow: const [
@@ -46,21 +48,18 @@ class ExerciseCard extends StatelessWidget {
               child: Container(
             height: 60,
             color: Colors.white,
-            child: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10.0, top: 5.0),
               child: Text(
                 '${exercise.sets}x${exercise.reps}\nRest: ${exercise.rest}s',
-                style: TextStyle(
-                  color: kMainColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: kCardTextDarkSmall,
               ),
             ),
           )),
           edit
               ? GestureDetector(
                   onTap: () {
-                    Provider.of<ExercisesProv>(context, listen: false)
+                    Provider.of<ExercisesProvider>(context, listen: false)
                         .deleteExercise(exercise);
                   },
                   child: Container(

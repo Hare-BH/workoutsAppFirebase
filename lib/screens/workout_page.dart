@@ -1,31 +1,25 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
-import 'package:training_app/models/exercise.dart';
-import 'package:training_app/models/exercises_provider.dart';
+import 'package:training_app/screens/in_progress_page.dart';
 import '../models/workout.dart';
-import '../models/workouts_box.dart';
-import '../widgets/add_exercise.dart';
+import '../models/workouts_box_provider.dart';
 import '../widgets/exercise_card_edit.dart';
+import 'edit_workout_page.dart';
 
-class WorkoutPage extends StatefulWidget {
-  const WorkoutPage({Key? key}) : super(key: key);
+class WorkoutPage extends StatelessWidget {
+  const WorkoutPage({Key? key, required this.workoutIndex}) : super(key: key);
 
-  @override
-  State<WorkoutPage> createState() => _WorkoutPageState();
-}
+  final int workoutIndex;
 
-final items = ['Abs', 'Arms', 'Chest', 'Back', 'Legs', 'Shoulders'];
-Object? selected;
-const bool edit = true;
-late String title;
-late String category;
-
-class _WorkoutPageState extends State<WorkoutPage> {
   @override
   Widget build(BuildContext context) {
+    Workout workout = Provider.of<WorkoutsBoxProvider>(context)
+        .workoutsBox
+        .getAt(workoutIndex);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
       backgroundColor: kMainColor,
@@ -34,32 +28,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 40,
-              margin: const EdgeInsets.only(top: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: kMainColor, width: 2),
-              ),
-              child: TextField(
-                onChanged: (value) {
-                  title = value;
-                },
-                cursorColor: kMainColor,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: kMainColor,
-                  fontSize: 16.0,
-                ),
-                decoration: const InputDecoration(
-                  hintText: 'Workout title',
-                  hintStyle: TextStyle(
-                    color: Colors.black26,
-                    fontSize: 16,
-                  ),
-                  border: InputBorder.none,
-                ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Text(
+                workout.title,
+                style: kCardText,
               ),
             ),
             Container(
@@ -79,13 +52,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
               child: Row(
                 children: [
                   const Expanded(
-                    child: Text(
-                      'Category:',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: Text('Category:',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white)),
                   ),
                   Expanded(
                     child: Container(
@@ -94,21 +63,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
                         color: Colors.white,
                       ),
                       child: Center(
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            value: selected,
-                            icon: FaIcon(
-                              FontAwesomeIcons.angleDown,
-                              color: kMainColor,
-                            ),
-                            items: items.map(buildMenuItem).toList(),
-                            onChanged: (value) => setState(() {
-                              selected = value;
-                              category = value.toString();
-                            }),
-                          ),
-                        ),
-                      ),
+                          child: Text(
+                        workout.category,
+                        style: kCardTextDarkRegular,
+                      )),
                     ),
                   ),
                 ],
@@ -116,74 +74,60 @@ class _WorkoutPageState extends State<WorkoutPage> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount:
-                      Provider.of<ExercisesProv>(context).exercises.length,
+                  itemCount: workout.exerciseList.length,
                   itemBuilder: (context, index) {
-                    List<Exercise> exercises =
-                        Provider.of<ExercisesProv>(context).exercises;
-
+                    final exerciseList = workout.exerciseList;
                     return ExerciseCard(
-                      edit: true,
-                      exercise: exercises[index],
+                      edit: false,
+                      exercise: exerciseList[index],
+                      color: kBlueAccent,
                     );
                   }),
             ),
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              Workout workout = Workout(title, category,
-                  Provider.of<ExercisesProv>(context, listen: false).exercises);
-              Provider.of<WorkoutsBox>(context, listen: false)
-                  .addWorkout(workout);
-              Provider.of<ExercisesProv>(context, listen: false).deleteAll();
-            },
-            backgroundColor: Colors.white,
-            child: FaIcon(
-              FontAwesomeIcons.flagCheckered,
-              color: kMainColor,
-            ),
+      bottomNavigationBar: CurvedNavigationBar(
+        animationCurve: Curves.easeInBack,
+        animationDuration: const Duration(milliseconds: 400),
+        backgroundColor: kMainColor,
+        index: 1,
+        color: kWhiteBackground,
+        height: 60,
+        onTap: (index) {
+          index == 0
+              ? Navigator.pop(context)
+              : index == 1
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const InProgressPage()),
+                    )
+                  : Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              EditWorkoutPage(index: workoutIndex)),
+                    );
+        },
+        items: const [
+          FaIcon(
+            FontAwesomeIcons.angleLeft,
+            size: 30.0,
+            color: kMainColor,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: FloatingActionButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => SingleChildScrollView(
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: const AddExercise(),
-                    ),
-                  ),
-                );
-              },
-              backgroundColor: Colors.white,
-              child: FaIcon(
-                FontAwesomeIcons.plus,
-                color: kMainColor,
-              ),
-            ),
+          FaIcon(
+            FontAwesomeIcons.play,
+            size: 30.0,
+            color: kMainColor,
           ),
+          FaIcon(
+            FontAwesomeIcons.edit,
+            size: 30.0,
+            color: kMainColor,
+          )
         ],
       ),
     );
   }
-
-  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-        value: item,
-        child: Text(
-          item,
-          style: TextStyle(
-            color: kMainColor,
-          ),
-        ),
-      );
 }

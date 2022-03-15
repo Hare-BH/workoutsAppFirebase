@@ -119,13 +119,12 @@ class _InProgressPageState extends State<InProgressPage> {
                     const Text(
                       '¨Look in the mirror.\nThat’s your competition.¨ – John Assaraf',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300),
+                      style: kQuoteStyle,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: const CircleAvatar(
                         radius: 30,
                         child: FaIcon(

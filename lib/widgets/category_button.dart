@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:training_app/constants.dart';
 
-class CategoryButton extends StatelessWidget {
-  const CategoryButton({required this.title, this.isPressed = false});
+import '../models/category.dart';
 
-  final String title;
-  final bool isPressed;
+class CategoryButton extends StatelessWidget {
+  const CategoryButton({Key? key, required this.category}) : super(key: key);
+
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +15,15 @@ class CategoryButton extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       decoration: BoxDecoration(
-        color: isPressed ? kMainColor : kWhiteBackground,
+        color: category.isPressed ? kMainColor : kWhiteBackground,
         borderRadius: BorderRadius.circular(12),
         boxShadow: kElevatedShadow,
       ),
       child: Text(
-        title,
+        category.title,
         textAlign: TextAlign.center,
         style: TextStyle(
-            color: isPressed ? kWhiteBackground : kGrey,
+            color: category.isPressed ? kWhiteBackground : kGrey,
             fontSize: 20,
             fontWeight: FontWeight.w700),
       ),

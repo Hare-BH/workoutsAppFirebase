@@ -1,14 +1,20 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:training_app/constants.dart';
 import 'package:invert_colors/invert_colors.dart';
+import 'package:training_app/screens/workout_page.dart';
+
+import '../models/navigation_key.dart';
 
 class WorkoutCard extends StatelessWidget {
   const WorkoutCard({
     Key? key,
     required this.title,
+    required this.category,
   }) : super(key: key);
 
   final String title;
+  final String category;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +52,7 @@ class WorkoutCard extends StatelessWidget {
                 height: 70,
                 child: InvertColors(
                   child: Image.asset(
-                    'images/biceps.png',
+                    'images/${category.toLowerCase()}.png',
                   ),
                 ),
               )

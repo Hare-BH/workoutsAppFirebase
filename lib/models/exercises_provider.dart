@@ -2,11 +2,18 @@ import 'package:flutter/cupertino.dart';
 
 import 'exercise.dart';
 
-class ExercisesProv extends ChangeNotifier {
+class ExercisesProvider extends ChangeNotifier {
   List<Exercise> exercises = [];
+
+  get exer => exercises;
 
   void addExercise(Exercise exercise) {
     exercises.add(exercise);
+    notifyListeners();
+  }
+
+  void setExerciseList(List<Exercise> newList) {
+    exercises = newList;
     notifyListeners();
   }
 
@@ -17,5 +24,6 @@ class ExercisesProv extends ChangeNotifier {
 
   void deleteAll() {
     exercises.removeRange(0, exercises.length - 1);
+    notifyListeners();
   }
 }
