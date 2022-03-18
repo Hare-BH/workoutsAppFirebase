@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'exercise.dart';
 
 class ExercisesProvider extends ChangeNotifier {
@@ -23,5 +22,9 @@ class ExercisesProvider extends ChangeNotifier {
 
   void reset() {
     _exercises = [];
+    newExerciseTitle = '';
+    newSets = 0;
+    newReps = 0;
+    newRest = 0;
   }
 }
