@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'exercise.dart';
 
 class ExercisesProvider extends ChangeNotifier {
-  List<Exercise> exercises = [];
+  List<Exercise> _exercises = [];
+  get exercises => _exercises;
 
   late String newExerciseTitle;
   late int newSets;
@@ -11,29 +12,16 @@ class ExercisesProvider extends ChangeNotifier {
   late int newRest;
 
   void addExercise() {
-    exercises.add(Exercise(newExerciseTitle, newSets, newReps, newRest));
-    notifyListeners();
-  }
-
-  void updateList(List<Exercise> newList) {
-    for (var exercise in newList) {
-      exercises.add(exercise);
-    }
-    notifyListeners();
-  }
-
-  void setExerciseList(List<Exercise> newList) {
-    exercises = newList;
+    _exercises.add(Exercise(newExerciseTitle, newSets, newReps, newRest));
     notifyListeners();
   }
 
   void deleteExercise(Exercise exercise) {
-    exercises.remove(exercise);
+    _exercises.remove(exercise);
     notifyListeners();
   }
 
-  void deleteAll() {
-    exercises.clear();
-    notifyListeners();
+  void reset() {
+    _exercises = [];
   }
 }

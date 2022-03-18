@@ -9,11 +9,16 @@ import '../constants.dart';
 import '../models/navigation_key.dart';
 import 'add_exercise.dart';
 
-class FABAddWorkout extends StatelessWidget {
+class FABAddWorkout extends StatefulWidget {
   const FABAddWorkout({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<FABAddWorkout> createState() => _FABAddWorkoutState();
+}
+
+class _FABAddWorkoutState extends State<FABAddWorkout> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,7 +37,7 @@ class FABAddWorkout extends StatelessWidget {
                     .exercises;
             Provider.of<WorkoutsBoxProvider>(context, listen: false)
                 .addWorkout(title, category, exerciseList);
-            //Provider.of<ExercisesProvider>(context, listen: false).deleteAll();
+            Provider.of<ExercisesProvider>(context, listen: false).reset();
             CurvedNavigationBarState navState =
                 NavigationKey.getKey().currentState!;
             navState.setPage(0);

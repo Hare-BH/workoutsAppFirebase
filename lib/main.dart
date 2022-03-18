@@ -14,10 +14,6 @@ void main() async {
   Hive.registerAdapter(ExerciseAdapter());
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  // MultiProvider(providers: [
-  //   ChangeNotifierProvider(create: (_) => ExercisesProv()),
-  //   ChangeNotifierProvider(create: (_) => WorkoutsBox()),
-  // ]);
   runApp(const MyApp());
 }
 

@@ -20,7 +20,7 @@ class InputTitleField extends StatelessWidget {
         border: Border.all(color: kMainColor, width: 2),
       ),
       child: TextField(
-        onSubmitted: (value) {
+        onChanged: (value) {
           Provider.of<WorkoutsBoxProvider>(context, listen: false).newTitle =
               value;
         },

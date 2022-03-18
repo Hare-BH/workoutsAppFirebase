@@ -4,7 +4,13 @@ import 'exercise.dart';
 import 'workout.dart';
 
 class WorkoutsBoxProvider extends ChangeNotifier {
-  Box workoutsBox = Hive.box('workouts');
+  final Box _workoutsBox = Hive.box('workouts');
+  get workoutsBox => _workoutsBox;
+
+  String newTitle = 'default';
+
+  Workout getAtIndex(int index) => _workoutsBox.getAt(index);
+  int boxLength() => _workoutsBox.length;
 
   void addWorkout(String title, String category, List<Exercise> exercises) {
     Box workoutsBox = Hive.box('workouts');
@@ -12,21 +18,15 @@ class WorkoutsBoxProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateWorkout(Workout workout, int index) {
-    Box workoutsBox = Hive.box('workouts');
-    workoutsBox.putAt(index, workout);
-    notifyListeners();
-  }
-
   void deleteAll() {
-    workoutsBox.deleteAll(workoutsBox.keys);
+    _workoutsBox.deleteAll(_workoutsBox.keys);
     notifyListeners();
   }
 
-  String newTitle = 'default';
+// void updateWorkout(Workout workout, int index) {
+//   Box workoutsBox = Hive.box('workouts');
+//   workoutsBox.putAt(index, workout);
+//   notifyListeners();
+// }
 
-  // void addTitle(String title) {
-  //   newTitle = title;
-  //   notifyListeners();
-  // }
 }
