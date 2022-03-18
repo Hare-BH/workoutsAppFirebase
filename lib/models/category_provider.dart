@@ -13,6 +13,7 @@ class CategoriesProvider extends ChangeNotifier {
   ];
 
   String _activeCategory = 'All';
+  late String selectedCategory = ' ';
 
   String get activeCategory => _activeCategory;
   List<Category> get categories => _categories;

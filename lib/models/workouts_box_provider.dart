@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
+import 'exercise.dart';
 import 'workout.dart';
 
 class WorkoutsBoxProvider extends ChangeNotifier {
   Box workoutsBox = Hive.box('workouts');
 
-  void addWorkout(Workout workout) {
+  void addWorkout(String title, String category, List<Exercise> exercises) {
     Box workoutsBox = Hive.box('workouts');
-    workoutsBox.add(workout);
+    workoutsBox.add(Workout(title, category, exercises));
     notifyListeners();
   }
 
@@ -21,4 +22,11 @@ class WorkoutsBoxProvider extends ChangeNotifier {
     workoutsBox.deleteAll(workoutsBox.keys);
     notifyListeners();
   }
+
+  String newTitle = 'default';
+
+  // void addTitle(String title) {
+  //   newTitle = title;
+  //   notifyListeners();
+  // }
 }

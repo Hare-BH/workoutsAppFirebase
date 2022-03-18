@@ -8,7 +8,7 @@ import 'package:training_app/models/exercises_provider.dart';
 import '../models/workout.dart';
 import '../models/workouts_box_provider.dart';
 import '../widgets/add_exercise.dart';
-import '../widgets/exercise_card_edit.dart';
+import '../widgets/exercise_card.dart';
 
 class EditWorkoutPage extends StatefulWidget {
   const EditWorkoutPage({Key? key, required this.index}) : super(key: key);
@@ -130,10 +130,6 @@ class _EditWorkoutPageState extends State<EditWorkoutPage> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              Provider.of<WorkoutsBoxProvider>(context, listen: false)
-                  .updateWorkout(workout, widget.index);
-              Provider.of<ExercisesProvider>(context, listen: false)
-                  .deleteAll();
               Navigator.pop(context);
             },
             backgroundColor: Colors.white,

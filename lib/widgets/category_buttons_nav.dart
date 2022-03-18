@@ -7,13 +7,12 @@ import 'category_button.dart';
 class CategoryButtons extends StatelessWidget {
   const CategoryButtons({
     Key? key,
-    required this.categories,
   }) : super(key: key);
-
-  final List<Category> categories;
 
   @override
   Widget build(BuildContext context) {
+    List<Category> categories =
+        Provider.of<CategoriesProvider>(context).categories;
     return SizedBox(
       height: 40,
       child: ListView.builder(

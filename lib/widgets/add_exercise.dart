@@ -3,18 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
 import 'package:training_app/models/exercises_provider.dart';
-import '../models/exercise.dart';
-import '../models/workouts_box_provider.dart';
 
 class AddExercise extends StatelessWidget {
   const AddExercise({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    late String title;
-    late int sets;
-    late int reps;
-    late int rest;
     return Container(
       color: kMainColor,
       child: Container(
@@ -47,7 +41,8 @@ class AddExercise extends StatelessWidget {
               ),
               child: TextField(
                 onChanged: (value) {
-                  title = value;
+                  Provider.of<ExercisesProvider>(context, listen: false)
+                      .newExerciseTitle = value;
                 },
                 cursorColor: kMainColor,
                 textAlign: TextAlign.center,
@@ -79,7 +74,8 @@ class AddExercise extends StatelessWidget {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
-                        sets = int.parse(value);
+                        Provider.of<ExercisesProvider>(context, listen: false)
+                            .newSets = int.parse(value);
                       },
                       cursorColor: kMainColor,
                       textAlign: TextAlign.center,
@@ -111,7 +107,8 @@ class AddExercise extends StatelessWidget {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
-                        reps = int.parse(value);
+                        Provider.of<ExercisesProvider>(context, listen: false)
+                            .newReps = int.parse(value);
                       },
                       cursorColor: kMainColor,
                       textAlign: TextAlign.center,
@@ -143,7 +140,8 @@ class AddExercise extends StatelessWidget {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
-                        rest = int.parse(value);
+                        Provider.of<ExercisesProvider>(context, listen: false)
+                            .newRest = int.parse(value);
                       },
                       cursorColor: kMainColor,
                       textAlign: TextAlign.center,
@@ -171,11 +169,10 @@ class AddExercise extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
+                Provider.of<ExercisesProvider>(context, listen: false)
+                    .addExercise();
                 SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
                     overlays: []);
-                Exercise exercise = Exercise(title, sets, reps, rest);
-                Provider.of<ExercisesProvider>(context, listen: false)
-                    .addExercise(exercise);
                 Navigator.pop(context);
               },
             ),

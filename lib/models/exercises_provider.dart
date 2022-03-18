@@ -5,10 +5,20 @@ import 'exercise.dart';
 class ExercisesProvider extends ChangeNotifier {
   List<Exercise> exercises = [];
 
-  get exer => exercises;
+  late String newExerciseTitle;
+  late int newSets;
+  late int newReps;
+  late int newRest;
 
-  void addExercise(Exercise exercise) {
-    exercises.add(exercise);
+  void addExercise() {
+    exercises.add(Exercise(newExerciseTitle, newSets, newReps, newRest));
+    notifyListeners();
+  }
+
+  void updateList(List<Exercise> newList) {
+    for (var exercise in newList) {
+      exercises.add(exercise);
+    }
     notifyListeners();
   }
 
@@ -23,7 +33,7 @@ class ExercisesProvider extends ChangeNotifier {
   }
 
   void deleteAll() {
-    exercises.removeRange(0, exercises.length - 1);
+    exercises.clear();
     notifyListeners();
   }
 }
