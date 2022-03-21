@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
-import 'exercise.dart';
-import 'workout.dart';
+import '../exercise.dart';
+import '../workout.dart';
 
 class WorkoutsBoxProvider extends ChangeNotifier {
   final Box _workoutsBox = Hive.box('workouts');
@@ -23,6 +23,22 @@ class WorkoutsBoxProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  int exerciseInProgressIndex = 0;
+
+  void incrementExerciseIndex() {
+    exerciseInProgressIndex++;
+    notifyListeners();
+  }
+
+  void decrementExerciseIndex() {
+    exerciseInProgressIndex--;
+    notifyListeners();
+  }
+
+  void resetExerciseIndex() {
+    exerciseInProgressIndex = 0;
+    notifyListeners();
+  }
 // void updateWorkout(Workout workout, int index) {
 //   Box workoutsBox = Hive.box('workouts');
 //   workoutsBox.putAt(index, workout);

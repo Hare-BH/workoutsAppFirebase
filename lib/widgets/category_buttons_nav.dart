@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../models/category.dart';
-import '../models/category_provider.dart';
+import '../models/provider/category_provider.dart';
 import 'category_button.dart';
 
 class CategoryButtons extends StatelessWidget {

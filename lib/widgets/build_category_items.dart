@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
-import '../models/category_provider.dart';
+import '../models/provider/category_provider.dart';
 
 class BuildCategoryItems extends StatefulWidget {
   const BuildCategoryItems({Key? key}) : super(key: key);

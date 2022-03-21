@@ -30,7 +30,8 @@ class NavBarWorkout extends StatelessWidget {
                 ? Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const InProgressPage()),
+                        builder: (context) =>
+                            InProgressPage(workoutIndex: workoutIndex)),
                   )
                 : Navigator.push(
                     context,

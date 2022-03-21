@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'exercise.dart';
+import '../exercise.dart';
 
 class ExercisesProvider extends ChangeNotifier {
   List<Exercise> _exercises = [];

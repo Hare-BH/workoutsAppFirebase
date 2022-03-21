@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/widgets/workout_card.dart';
 
-import '../models/category_provider.dart';
-import '../models/workouts_box_provider.dart';
+import '../models/provider/category_provider.dart';
+import '../models/provider/workouts_box_provider.dart';
 import '../screens/workout_page.dart';
 
 class WorkoutCards extends StatelessWidget {

@@ -4,9 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
 import 'package:training_app/models/exercise.dart';
-import 'package:training_app/models/exercises_provider.dart';
+import 'package:training_app/models/provider/exercises_provider.dart';
 import '../models/workout.dart';
-import '../models/workouts_box_provider.dart';
+import '../models/provider/workouts_box_provider.dart';
 import '../widgets/add_exercise.dart';
 import '../widgets/exercise_card.dart';
 

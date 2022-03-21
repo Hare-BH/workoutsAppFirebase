@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
-import 'package:training_app/models/exercises_provider.dart';
+import 'package:training_app/models/provider/exercises_provider.dart';
 
 class AddExercise extends StatelessWidget {
   const AddExercise({Key? key}) : super(key: key);

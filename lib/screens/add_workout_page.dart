@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
 import 'package:training_app/widgets/exercise_builder.dart';
-import '../models/exercises_provider.dart';
+import '../models/provider/exercises_provider.dart';
 import '../widgets/build_category_items.dart';
 import '../widgets/fab_add_workout.dart';
 import '../widgets/input_title_field.dart';

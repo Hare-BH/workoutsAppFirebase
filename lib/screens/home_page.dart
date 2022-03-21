@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
-import '../models/workouts_box_provider.dart';
+import '../models/provider/workouts_box_provider.dart';
 import '../widgets/calender_card.dart';
 import '../widgets/category_buttons_nav.dart';
 import '../widgets/next_workout_card.dart';

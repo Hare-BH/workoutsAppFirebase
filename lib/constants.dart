@@ -76,3 +76,24 @@ TextStyle kHeaderText =
 
 const TextStyle kQuoteStyle =
     TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300);
+
+const TextStyle kInProgressTitleStyle = TextStyle(
+  fontSize: 20,
+  color: kMainColor,
+  fontWeight: FontWeight.w700,
+);
+
+const TextStyle kInProgressExerciseStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 36,
+    fontWeight: FontWeight.w500,
+    shadows: [
+      BoxShadow(
+          color: Colors.black26,
+          offset: Offset(0, 4),
+          blurRadius: 2,
+          spreadRadius: 1)
+    ]);
+
+const TextStyle kSetsRepsStyle =
+    TextStyle(fontSize: 36, fontWeight: FontWeight.w700, color: Colors.white);

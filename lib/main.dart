@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:training_app/main_page.dart';
-import 'package:training_app/models/category_provider.dart';
-import 'package:training_app/models/exercises_provider.dart';
+import 'package:training_app/models/provider/category_provider.dart';
+import 'package:training_app/models/provider/exercises_provider.dart';
 import 'package:training_app/models/workout.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'models/exercise.dart';
-import 'models/workouts_box_provider.dart';
+import 'models/provider/workouts_box_provider.dart';
 
 void main() async {
   Hive.registerAdapter(WorkoutAdapter());

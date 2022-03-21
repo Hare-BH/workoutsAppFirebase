@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/models/exercise.dart';
 import '../constants.dart';
-import '../models/exercises_provider.dart';
+import '../models/provider/exercises_provider.dart';
 import 'exercise_card.dart';
 
 class ExerciseBuilder extends StatelessWidget {

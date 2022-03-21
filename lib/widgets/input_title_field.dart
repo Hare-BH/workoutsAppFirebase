@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_app/models/workouts_box_provider.dart';
+import 'package:training_app/models/provider/workouts_box_provider.dart';
 
 import '../constants.dart';
 
