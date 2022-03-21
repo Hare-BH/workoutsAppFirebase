@@ -21,7 +21,6 @@ class ExerciseBuilder extends StatelessWidget {
     exercises == null
         ? exerciseList = Provider.of<ExercisesProvider>(context).exercises
         : exerciseList = exercises!;
-    print(exercises);
     return Expanded(
       child: ListView.builder(
           itemCount: exerciseList.length,

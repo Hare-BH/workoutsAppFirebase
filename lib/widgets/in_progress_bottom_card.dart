@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:training_app/widgets/rest_timer.dart';
 import '../constants.dart';
 import '../models/exercise.dart';
 import '../models/provider/workouts_box_provider.dart';
@@ -17,6 +18,7 @@ class InProgressBottomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool rest = Provider.of<WorkoutsBoxProvider>(context).rest;
     return Expanded(
       flex: 3,
       child: Container(
@@ -32,7 +34,7 @@ class InProgressBottomCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                exercise.title,
+                rest ? 'REST' : exercise.title,
                 style: kInProgressExerciseStyle,
               ),
               Row(
@@ -46,8 +48,11 @@ class InProgressBottomCard extends StatelessWidget {
                           0) {
                         Provider.of<WorkoutsBoxProvider>(context, listen: false)
                             .decrementExerciseIndex();
+                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                            .restFalse();
                       } else {
-                        ///
+                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                            .doneWorkoutFalse();
                       }
                     },
                     child: const FaIcon(
@@ -56,20 +61,32 @@ class InProgressBottomCard extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  Text(
-                    '${exercise.sets}x${exercise.reps}',
-                    style: kSetsRepsStyle,
-                  ),
+                  rest
+                      ? RestTimer(
+                          seconds: exercise.rest,
+                          listLength: listLength,
+                        )
+                      : Text(
+                          '${exercise.sets}x${exercise.reps}',
+                          style: kSetsRepsStyle,
+                        ),
                   GestureDetector(
                     onTap: () {
+                      Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                          .restTrue();
+                    },
+                    onDoubleTap: () {
                       if (Provider.of<WorkoutsBoxProvider>(context,
                                   listen: false)
                               .exerciseInProgressIndex !=
                           listLength - 1) {
                         Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                            .restFalse();
+                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
                             .incrementExerciseIndex();
                       } else {
-                        ///
+                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                            .doneWorkoutTrue();
                       }
                     },
                     child: const FaIcon(

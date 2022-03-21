@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
 import 'package:training_app/models/exercise.dart';
-
 import '../models/provider/workouts_box_provider.dart';
 
 class ExerciseInProgress extends StatelessWidget {

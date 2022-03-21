@@ -5,6 +5,7 @@ import 'package:training_app/models/provider/workouts_box_provider.dart';
 import '../models/workout.dart';
 import '../widgets/in_progress_bottom_card.dart';
 import '../widgets/in_progress_exercise_builder.dart';
+import '../widgets/workout_done_card.dart';
 
 class InProgressPage extends StatelessWidget {
   const InProgressPage({Key? key, required this.workoutIndex})
@@ -18,6 +19,7 @@ class InProgressPage extends StatelessWidget {
         Provider.of<WorkoutsBoxProvider>(context).getAtIndex(workoutIndex);
     int exerciseIndex =
         Provider.of<WorkoutsBoxProvider>(context).exerciseInProgressIndex;
+    bool isWorkoutDone = Provider.of<WorkoutsBoxProvider>(context).doneWorkout;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -32,10 +34,12 @@ class InProgressPage extends StatelessWidget {
             ),
           ),
           InProgressExerciseBuilder(index: workoutIndex),
-          InProgressBottomCard(
-            exercise: workout.exerciseList[exerciseIndex],
-            listLength: workout.exerciseList.length,
-          ),
+          isWorkoutDone
+              ? const WorkoutDoneCard()
+              : InProgressBottomCard(
+                  exercise: workout.exerciseList[exerciseIndex],
+                  listLength: workout.exerciseList.length,
+                ),
         ],
       ),
     );

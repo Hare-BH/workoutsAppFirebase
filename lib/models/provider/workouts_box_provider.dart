@@ -18,6 +18,12 @@ class WorkoutsBoxProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // void updateWorkout(Workout workout, int index) {
+//   Box workoutsBox = Hive.box('workouts');
+//   workoutsBox.putAt(index, workout);
+//   notifyListeners();
+// }
+
   void deleteAll() {
     _workoutsBox.deleteAll(_workoutsBox.keys);
     notifyListeners();
@@ -39,10 +45,49 @@ class WorkoutsBoxProvider extends ChangeNotifier {
     exerciseInProgressIndex = 0;
     notifyListeners();
   }
-// void updateWorkout(Workout workout, int index) {
-//   Box workoutsBox = Hive.box('workouts');
-//   workoutsBox.putAt(index, workout);
-//   notifyListeners();
-// }
 
+  ///
+
+  ///is rest time active used in "in_progress_bottom_card"
+  bool rest = false;
+
+  void restTrue() {
+    rest = true;
+    notifyListeners();
+  }
+
+  void restFalse() {
+    rest = false;
+    notifyListeners();
+  }
+
+  ///
+
+  ///is workout done used in "in_progress_page"
+  bool doneWorkout = false;
+
+  void doneWorkoutTrue() {
+    doneWorkout = true;
+    notifyListeners();
+  }
+
+  void doneWorkoutFalse() {
+    doneWorkout = false;
+    notifyListeners();
+  }
+
+  ///
+
+  ///
+  late int currentReps;
+
+  void setReps(int reps) {
+    currentReps = reps;
+    notifyListeners();
+  }
+
+  void decrementReps() {
+    currentReps--;
+    notifyListeners();
+  }
 }
