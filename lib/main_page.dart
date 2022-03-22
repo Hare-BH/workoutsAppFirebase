@@ -1,10 +1,12 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:training_app/models/navigation_key.dart';
 import 'package:training_app/screens/home_page.dart';
 import 'package:training_app/screens/add_workout_page.dart';
 import 'constants.dart';
+import 'models/provider/workouts_box_provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -42,6 +44,12 @@ class _MainPageState extends State<MainPage> {
                 index == 2
                     ? {color = kMainColor, main = kWhiteBackground}
                     : {color = kWhiteBackground, main = kMainColor};
+
+                index == 4
+                    ? Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                        .deleteAll()
+                    : null;
+
                 this.index = index;
               }),
           items: [
@@ -66,7 +74,7 @@ class _MainPageState extends State<MainPage> {
               color: color,
             ),
             FaIcon(
-              FontAwesomeIcons.bookmark,
+              FontAwesomeIcons.trash,
               size: 20.0,
               color: color,
             )

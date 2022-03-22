@@ -17,42 +17,51 @@ class WorkoutCards extends StatelessWidget {
       builder: (BuildContext context, workoutsBox, _) {
         return SizedBox(
           height: 190,
-          child: ListView.builder(
-              physics: const ScrollPhysics(
-                  parent: BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics())),
-              scrollDirection: Axis.horizontal,
-              itemCount: workoutsBox.boxLength(),
-              itemBuilder: (context, index) {
-                final workout = workoutsBox.getAtIndex(index);
-                if (Provider.of<CategoriesProvider>(context).activeCategory ==
-                    'All') {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                WorkoutPage(workoutIndex: index)),
+          child: workoutsBox.boxLength() != 0
+              ? ListView.builder(
+                  physics: const ScrollPhysics(
+                      parent: BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics())),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: workoutsBox.boxLength(),
+                  itemBuilder: (context, index) {
+                    final workout = workoutsBox.getAtIndex(index);
+                    if (Provider.of<CategoriesProvider>(context)
+                            .activeCategory ==
+                        'All') {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    WorkoutPage(workoutIndex: index)),
+                          );
+                        },
+                        child: WorkoutCard(
+                          title: workout.title,
+                          category: workout.category,
+                        ),
                       );
-                    },
-                    child: WorkoutCard(
-                      title: workout.title,
-                      category: workout.category,
-                    ),
-                  );
-                } else {
-                  if (workout.category ==
-                      Provider.of<CategoriesProvider>(context).activeCategory) {
-                    return WorkoutCard(
-                      title: workout.title,
-                      category: workout.category,
-                    );
-                  } else {
-                    return Container();
-                  }
-                }
-              }),
+                    } else {
+                      if (workout.category ==
+                          Provider.of<CategoriesProvider>(context)
+                              .activeCategory) {
+                        return WorkoutCard(
+                          title: workout.title,
+                          category: workout.category,
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }
+                  })
+              : const Center(
+                  child: Text(
+                    'Press the plus button to \ncreate a new workout',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
         );
       },
     );

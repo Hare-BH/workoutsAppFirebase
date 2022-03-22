@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
-import '../models/provider/workouts_box_provider.dart';
 import '../widgets/calender_card.dart';
 import '../widgets/category_buttons_nav.dart';
 import '../widgets/next_workout_card.dart';
@@ -36,17 +34,9 @@ class HomePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Expanded(child: NextWorkoutCard()),
-                    Expanded(
-                      child: GestureDetector(
-                          onLongPress: () {
-                            Provider.of<WorkoutsBoxProvider>(context,
-                                    listen: false)
-                                .deleteAll();
-                          },
-                          child: const CalenderCard()),
-                    ),
+                  children: const [
+                    Expanded(child: NextWorkoutCard()),
+                    Expanded(child: CalenderCard()),
                   ],
                 ),
               ),
