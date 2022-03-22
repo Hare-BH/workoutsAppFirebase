@@ -26,4 +26,10 @@ class CategoriesProvider extends ChangeNotifier {
     notifyListeners();
     return null;
   }
+
+  void resetCategory() {
+    _activeCategory = 'All';
+    selectedCategory = ' ';
+    notifyListeners();
+  }
 }

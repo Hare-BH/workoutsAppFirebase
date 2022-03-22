@@ -7,7 +7,7 @@ class WorkoutsBoxProvider extends ChangeNotifier {
   final Box _workoutsBox = Hive.box('workouts');
   get workoutsBox => _workoutsBox;
 
-  String newTitle = 'default';
+  String newTitle = 'Workout Title';
 
   Workout getAtIndex(int index) => _workoutsBox.getAt(index);
   int boxLength() => _workoutsBox.length;
@@ -18,11 +18,11 @@ class WorkoutsBoxProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void updateWorkout(Workout workout, int index) {
-//   Box workoutsBox = Hive.box('workouts');
-//   workoutsBox.putAt(index, workout);
-//   notifyListeners();
-// }
+  void updateWorkout(Workout workout, int index) {
+    Box workoutsBox = Hive.box('workouts');
+    workoutsBox.putAt(index, workout);
+    notifyListeners();
+  }
 
   void deleteAll() {
     _workoutsBox.deleteAll(_workoutsBox.keys);
@@ -88,6 +88,16 @@ class WorkoutsBoxProvider extends ChangeNotifier {
 
   void decrementReps() {
     currentReps--;
+    notifyListeners();
+  }
+
+  ///
+
+  void resetFields() {
+    rest = false;
+    doneWorkout = false;
+    exerciseInProgressIndex = 0;
+    newTitle = 'Workout Title';
     notifyListeners();
   }
 }

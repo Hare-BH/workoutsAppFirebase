@@ -11,6 +11,8 @@ class InputTitleField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String wrkTitle =
+        Provider.of<WorkoutsBoxProvider>(context, listen: false).newTitle;
     return Container(
       height: 40,
       margin: const EdgeInsets.only(top: 5),
@@ -27,9 +29,9 @@ class InputTitleField extends StatelessWidget {
         cursorColor: kMainColor,
         textAlign: TextAlign.center,
         style: const TextStyle(color: kMainColor, fontSize: 16.0),
-        decoration: const InputDecoration(
-          hintText: 'Workout title',
-          hintStyle: TextStyle(color: Colors.black26, fontSize: 16),
+        decoration: InputDecoration(
+          hintText: wrkTitle,
+          hintStyle: const TextStyle(color: Colors.black26, fontSize: 16),
           border: InputBorder.none,
         ),
       ),

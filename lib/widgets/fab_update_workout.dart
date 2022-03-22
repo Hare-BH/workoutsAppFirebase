@@ -1,18 +1,20 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:training_app/models/provider/category_provider.dart';
-import 'package:training_app/models/provider/exercises_provider.dart';
-import 'package:training_app/models/provider/workouts_box_provider.dart';
 import '../constants.dart';
-import '../models/navigation_key.dart';
+import '../models/provider/category_provider.dart';
+import '../models/provider/exercises_provider.dart';
+import '../models/provider/workouts_box_provider.dart';
+import '../models/workout.dart';
 import 'add_exercise.dart';
 
-class FABAddWorkout extends StatelessWidget {
-  const FABAddWorkout({
+class FABUpdateWorkout extends StatelessWidget {
+  const FABUpdateWorkout({
     Key? key,
+    required this.index,
   }) : super(key: key);
+
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +33,13 @@ class FABAddWorkout extends StatelessWidget {
                 Provider.of<ExercisesProvider>(context, listen: false)
                     .exercises;
             Provider.of<WorkoutsBoxProvider>(context, listen: false)
-                .addWorkout(title, category, exerciseList);
-
-            ///
+                .updateWorkout(Workout(title, category, exerciseList), index);
             Provider.of<ExercisesProvider>(context, listen: false).reset();
-            Provider.of<CategoriesProvider>(context, listen: false)
-                .resetCategory();
             Provider.of<WorkoutsBoxProvider>(context, listen: false)
                 .resetFields();
-
-            ///
-            CurvedNavigationBarState navState =
-                NavigationKey.getKey().currentState!;
-            navState.setPage(0);
+            Provider.of<CategoriesProvider>(context, listen: false)
+                .resetCategory();
+            Navigator.pop(context);
           },
           backgroundColor: Colors.white,
           child: const FaIcon(
@@ -54,6 +50,7 @@ class FABAddWorkout extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: FloatingActionButton(
+            heroTag: 'fab2',
             onPressed: () {
               showModalBottomSheet(
                 context: context,

@@ -87,6 +87,8 @@ class InProgressBottomCard extends StatelessWidget {
                       } else {
                         Provider.of<WorkoutsBoxProvider>(context, listen: false)
                             .doneWorkoutTrue();
+                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                            .incrementExerciseIndex();
                       }
                     },
                     child: const FaIcon(

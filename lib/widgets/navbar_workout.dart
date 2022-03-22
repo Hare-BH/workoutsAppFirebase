@@ -1,7 +1,12 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import '../constants.dart';
+import '../models/provider/category_provider.dart';
+import '../models/provider/exercises_provider.dart';
+import '../models/provider/workouts_box_provider.dart';
+import '../models/workout.dart';
 import '../screens/edit_workout_page.dart';
 import '../screens/in_progress_page.dart';
 
@@ -15,6 +20,10 @@ class NavBarWorkout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Workout workout = Provider.of<WorkoutsBoxProvider>(context)
+        .workoutsBox
+        .getAt(workoutIndex);
+
     return CurvedNavigationBar(
       animationCurve: Curves.easeInBack,
       animationDuration: const Duration(milliseconds: 400),
@@ -32,12 +41,20 @@ class NavBarWorkout extends StatelessWidget {
                         builder: (context) =>
                             InProgressPage(workoutIndex: workoutIndex)),
                   )
-                : Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            EditWorkoutPage(index: workoutIndex)),
-                  );
+                : {
+                    Provider.of<ExercisesProvider>(context, listen: false)
+                        .updateExercise(workout.exerciseList),
+                    Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                        .newTitle = workout.title,
+                    Provider.of<CategoriesProvider>(context, listen: false)
+                        .selectedCategory = workout.category,
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              EditWorkoutPage(index: workoutIndex)),
+                    )
+                  };
       },
       items: const [
         FaIcon(

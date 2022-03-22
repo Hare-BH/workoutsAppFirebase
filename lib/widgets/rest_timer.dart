@@ -29,6 +29,8 @@ class _RestTimerState extends State<RestTimer> {
     } else {
       Provider.of<WorkoutsBoxProvider>(context, listen: false)
           .doneWorkoutTrue();
+      Provider.of<WorkoutsBoxProvider>(context, listen: false)
+          .incrementExerciseIndex();
     }
   }
 

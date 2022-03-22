@@ -15,6 +15,11 @@ class ExercisesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateExercise(List<Exercise> newExercises) async {
+    _exercises = newExercises;
+    notifyListeners();
+  }
+
   void deleteExercise(Exercise exercise) {
     _exercises.remove(exercise);
     notifyListeners();

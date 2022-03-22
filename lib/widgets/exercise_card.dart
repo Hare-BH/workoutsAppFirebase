@@ -11,11 +11,13 @@ class ExerciseCard extends StatelessWidget {
     required this.edit,
     required this.exercise,
     this.color = kMainColor,
+    this.workoutIndex,
   }) : super(key: key);
 
   final Color color;
   final Exercise exercise;
   final bool edit;
+  final int? workoutIndex;
 
   @override
   Widget build(BuildContext context) {

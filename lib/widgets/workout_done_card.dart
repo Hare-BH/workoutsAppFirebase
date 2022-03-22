@@ -24,9 +24,13 @@ class WorkoutDoneCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const Text(
-                'WORKOUT\nDONE\n!!!',
+                'Workout Finished\nGreat Job',
                 textAlign: TextAlign.center,
-                style: kInProgressExerciseStyle,
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                  fontSize: 27,
+                ),
               ),
               GestureDetector(
                 onTap: () {
@@ -44,6 +48,11 @@ class WorkoutDoneCard extends StatelessWidget {
                     size: 30,
                   ),
                 ),
+              ),
+              const Text(
+                '¨Look in the mirror.\nThat’s your competition.¨ – John Assaraf',
+                textAlign: TextAlign.center,
+                style: kQuoteStyle,
               ),
             ],
           ),
