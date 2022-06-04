@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/models/provider/category_provider.dart';
 import 'package:training_app/models/provider/exercises_provider.dart';
-import 'package:training_app/models/provider/workouts_box_provider.dart';
+import 'package:training_app/models/provider/workouts_firestore_provider.dart';
 import '../constants.dart';
 import '../models/navigation_key.dart';
 import 'add_exercise.dart';
@@ -22,7 +22,7 @@ class FABAddWorkout extends StatelessWidget {
         FloatingActionButton(
           onPressed: () {
             final title =
-                Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
                     .newTitle;
             final category =
                 Provider.of<CategoriesProvider>(context, listen: false)
@@ -30,14 +30,14 @@ class FABAddWorkout extends StatelessWidget {
             final exerciseList =
                 Provider.of<ExercisesProvider>(context, listen: false)
                     .exercises;
-            Provider.of<WorkoutsBoxProvider>(context, listen: false)
+            Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
                 .addWorkout(title, category, exerciseList);
 
             ///
             Provider.of<ExercisesProvider>(context, listen: false).reset();
             Provider.of<CategoriesProvider>(context, listen: false)
                 .resetCategory();
-            Provider.of<WorkoutsBoxProvider>(context, listen: false)
+            Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
                 .resetFields();
 
             ///

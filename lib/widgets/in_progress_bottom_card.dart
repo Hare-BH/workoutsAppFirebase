@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:training_app/widgets/rest_timer.dart';
 import '../constants.dart';
 import '../models/exercise.dart';
-import '../models/provider/workouts_box_provider.dart';
+import '../models/provider/workouts_firestore_provider.dart';
 
 class InProgressBottomCard extends StatelessWidget {
   const InProgressBottomCard({
@@ -18,7 +18,7 @@ class InProgressBottomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool rest = Provider.of<WorkoutsBoxProvider>(context).rest;
+    bool rest = Provider.of<WorkoutsFirestoreProvider>(context).rest;
     return Expanded(
       flex: 3,
       child: Container(
@@ -42,16 +42,19 @@ class InProgressBottomCard extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      if (Provider.of<WorkoutsBoxProvider>(context,
+                      if (Provider.of<WorkoutsFirestoreProvider>(context,
                                   listen: false)
                               .exerciseInProgressIndex !=
                           0) {
-                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                        Provider.of<WorkoutsFirestoreProvider>(context,
+                                listen: false)
                             .decrementExerciseIndex();
-                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                        Provider.of<WorkoutsFirestoreProvider>(context,
+                                listen: false)
                             .restFalse();
                       } else {
-                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                        Provider.of<WorkoutsFirestoreProvider>(context,
+                                listen: false)
                             .doneWorkoutFalse();
                       }
                     },
@@ -72,22 +75,27 @@ class InProgressBottomCard extends StatelessWidget {
                         ),
                   GestureDetector(
                     onTap: () {
-                      Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                      Provider.of<WorkoutsFirestoreProvider>(context,
+                              listen: false)
                           .restTrue();
                     },
                     onDoubleTap: () {
-                      if (Provider.of<WorkoutsBoxProvider>(context,
+                      if (Provider.of<WorkoutsFirestoreProvider>(context,
                                   listen: false)
                               .exerciseInProgressIndex !=
                           listLength - 1) {
-                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                        Provider.of<WorkoutsFirestoreProvider>(context,
+                                listen: false)
                             .restFalse();
-                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                        Provider.of<WorkoutsFirestoreProvider>(context,
+                                listen: false)
                             .incrementExerciseIndex();
                       } else {
-                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                        Provider.of<WorkoutsFirestoreProvider>(context,
+                                listen: false)
                             .doneWorkoutTrue();
-                        Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                        Provider.of<WorkoutsFirestoreProvider>(context,
+                                listen: false)
                             .incrementExerciseIndex();
                       }
                     },
@@ -106,7 +114,7 @@ class InProgressBottomCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                  Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
                       .resetExerciseIndex();
                   Navigator.pop(context);
                 },

@@ -1,10 +1,6 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:training_app/constants.dart';
 import 'package:invert_colors/invert_colors.dart';
-import 'package:training_app/screens/workout_page.dart';
-
-import '../models/navigation_key.dart';
 
 class WorkoutCard extends StatelessWidget {
   const WorkoutCard({
@@ -20,7 +16,7 @@ class WorkoutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 180,
-      width: MediaQuery.of(context).size.width - 100,
+      width: MediaQuery.of(context).size.width - 170,
       margin: const EdgeInsets.only(left: 30, top: 5, bottom: 5),
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(

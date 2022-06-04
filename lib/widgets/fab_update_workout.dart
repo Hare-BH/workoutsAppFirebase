@@ -4,17 +4,17 @@ import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../models/provider/category_provider.dart';
 import '../models/provider/exercises_provider.dart';
-import '../models/provider/workouts_box_provider.dart';
+import '../models/provider/workouts_firestore_provider.dart';
 import '../models/workout.dart';
 import 'add_exercise.dart';
 
 class FABUpdateWorkout extends StatelessWidget {
   const FABUpdateWorkout({
     Key? key,
-    required this.index,
+    required this.workoutID,
   }) : super(key: key);
 
-  final int index;
+  final String workoutID;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class FABUpdateWorkout extends StatelessWidget {
         FloatingActionButton(
           onPressed: () {
             final title =
-                Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
                     .newTitle;
             final category =
                 Provider.of<CategoriesProvider>(context, listen: false)
@@ -32,10 +32,11 @@ class FABUpdateWorkout extends StatelessWidget {
             final exerciseList =
                 Provider.of<ExercisesProvider>(context, listen: false)
                     .exercises;
-            Provider.of<WorkoutsBoxProvider>(context, listen: false)
-                .updateWorkout(Workout(title, category, exerciseList), index);
+            Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
+                .updateWorkout(
+                    Workout(title, category, exerciseList), workoutID);
             Provider.of<ExercisesProvider>(context, listen: false).reset();
-            Provider.of<WorkoutsBoxProvider>(context, listen: false)
+            Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
                 .resetFields();
             Provider.of<CategoriesProvider>(context, listen: false)
                 .resetCategory();

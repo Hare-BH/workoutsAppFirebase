@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_app/models/provider/workouts_box_provider.dart';
+import 'package:training_app/models/provider/workouts_firestore_provider.dart';
 
 import '../constants.dart';
 
@@ -12,7 +12,7 @@ class InputTitleField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String wrkTitle =
-        Provider.of<WorkoutsBoxProvider>(context, listen: false).newTitle;
+        Provider.of<WorkoutsFirestoreProvider>(context, listen: false).newTitle;
     return Container(
       height: 40,
       margin: const EdgeInsets.only(top: 5),
@@ -23,8 +23,8 @@ class InputTitleField extends StatelessWidget {
       ),
       child: TextField(
         onChanged: (value) {
-          Provider.of<WorkoutsBoxProvider>(context, listen: false).newTitle =
-              value;
+          Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
+              .newTitle = value;
         },
         cursorColor: kMainColor,
         textAlign: TextAlign.center,

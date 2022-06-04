@@ -34,3 +34,22 @@ class ExerciseBuilder extends StatelessWidget {
     );
   }
 }
+
+// @override
+// Widget build(BuildContext context) {
+//   List<Exercise> exerciseList;
+//   exercises == null
+//       ? exerciseList = Provider.of<ExercisesProvider>(context).exercises
+//       : exerciseList = exercises!;
+//   return Expanded(
+//     child: ListView.builder(
+//         itemCount: exerciseList.length,
+//         itemBuilder: (context, index) {
+//           return ExerciseCard(
+//             edit: edit,
+//             exercise: exerciseList[index],
+//             color: kBlueAccent,
+//           );
+//         }),
+//   );
+// }

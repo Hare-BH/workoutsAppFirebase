@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
 import 'package:training_app/models/exercise.dart';
-import '../models/provider/workouts_box_provider.dart';
+import '../models/provider/workouts_firestore_provider.dart';
 
 class ExerciseInProgress extends StatelessWidget {
   const ExerciseInProgress({
@@ -18,7 +18,7 @@ class ExerciseInProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     late bool? cardState;
     int currentExerIndex =
-        Provider.of<WorkoutsBoxProvider>(context).exerciseInProgressIndex;
+        Provider.of<WorkoutsFirestoreProvider>(context).exerciseInProgressIndex;
     exerIndex == currentExerIndex
         ? cardState = true
         : exerIndex > currentExerIndex

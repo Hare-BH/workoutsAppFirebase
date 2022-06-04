@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
-import '../models/provider/workouts_box_provider.dart';
+import '../models/provider/workouts_firestore_provider.dart';
 
 class RestTimer extends StatefulWidget {
   const RestTimer({Key? key, required this.seconds, required this.listLength})
@@ -21,15 +21,15 @@ class _RestTimerState extends State<RestTimer> {
   late int listLength = widget.listLength;
 
   void next() {
-    if (Provider.of<WorkoutsBoxProvider>(context, listen: false)
+    if (Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
             .exerciseInProgressIndex !=
         listLength - 1) {
-      Provider.of<WorkoutsBoxProvider>(context, listen: false)
+      Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
           .incrementExerciseIndex();
     } else {
-      Provider.of<WorkoutsBoxProvider>(context, listen: false)
+      Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
           .doneWorkoutTrue();
-      Provider.of<WorkoutsBoxProvider>(context, listen: false)
+      Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
           .incrementExerciseIndex();
     }
   }
@@ -43,7 +43,7 @@ class _RestTimerState extends State<RestTimer> {
             ? _counter--
             : {
                 _timer.cancel(),
-                Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
                     .restFalse(),
                 next()
               };

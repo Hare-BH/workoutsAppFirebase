@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
-import '../models/provider/workouts_box_provider.dart';
+import '../models/provider/workouts_firestore_provider.dart';
 
 class WorkoutDoneCard extends StatelessWidget {
   const WorkoutDoneCard({Key? key}) : super(key: key);
@@ -34,9 +34,9 @@ class WorkoutDoneCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                  Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
                       .resetExerciseIndex();
-                  Provider.of<WorkoutsBoxProvider>(context, listen: false)
+                  Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
                       .doneWorkoutFalse();
                   Navigator.pop(context);
                 },
