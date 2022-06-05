@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,6 +6,7 @@ import 'package:training_app/main_page.dart';
 import 'package:training_app/models/provider/category_provider.dart';
 import 'package:training_app/models/provider/exercises_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:training_app/screens/login_page.dart';
 import 'models/provider/workouts_firestore_provider.dart';
 
 void main() async {
@@ -34,7 +36,16 @@ class MyApp extends StatelessWidget {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 }
-                return const MainPage();
+                return StreamBuilder<User?>(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return const MainPage();
+                    } else {
+                      return const LoginPage();
+                    }
+                  },
+                );
               } else {
                 return const Scaffold();
               }
@@ -43,6 +54,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
 //https://github.com/Hare-BH/workouts_app.git
 //workouts-app-721eb

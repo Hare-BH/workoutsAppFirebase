@@ -1,10 +1,12 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/models/navigation_key.dart';
 import 'package:training_app/screens/home_page.dart';
 import 'package:training_app/screens/add_workout_page.dart';
+import 'package:training_app/screens/login_page.dart';
 import 'constants.dart';
 import 'models/provider/workouts_firestore_provider.dart';
 

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:training_app/constants.dart';
 import '../widgets/calender_card.dart';
@@ -17,13 +18,25 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(30),
-              child: Text(
-                'Ready for a \nworkout?',
-                textAlign: TextAlign.left,
-                style: kHeaderText,
-              ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Text(
+                    'Ready for a \nworkout?',
+                    textAlign: TextAlign.left,
+                    style: kHeaderText,
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: (() => FirebaseAuth.instance.signOut()),
+                  color: kMainColor,
+                  child: const Text(
+                    'Sign Out',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              ],
             ),
             const CategoryButtons(),
             const WorkoutCards(),
