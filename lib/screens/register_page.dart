@@ -4,23 +4,35 @@ import 'package:training_app/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:training_app/widgets/auth_input_field.dart';
 
-class LoginPage extends StatefulWidget {
-  final VoidCallback showRegisterPage;
-  const LoginPage({Key? key, required this.showRegisterPage}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  final VoidCallback showLoginPage;
+  const RegisterPage({Key? key, required this.showLoginPage}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   ///controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
+  Future signUp() async {
+    if (passwordConfirmed()) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+    }
+  }
+
+  bool passwordConfirmed() {
+    if (_passwordController.text.trim() ==
+        _confirmPasswordController.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -62,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Welcome back!',
+                  'Welcome!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Raleway',
@@ -73,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Please Sign In',
+                  'Register below',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Raleway',
@@ -98,10 +110,16 @@ class _LoginPageState extends State<LoginPage> {
                   hide: true,
                 ),
 
+                AuthInputField(
+                  controller: _confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  hide: true,
+                ),
+
                 ///
                 ///Login button
                 GestureDetector(
-                  onTap: signIn,
+                  onTap: signUp,
                   child: Container(
                     height: 50,
                     margin: const EdgeInsets.only(
@@ -119,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                         ]),
                     child: Center(
                       child: Text(
-                        'Sign In',
+                        'Sign Up',
                         style: TextStyle(
                           color: kWhiteBackground,
                           fontSize: 18,
@@ -133,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Not a member? ',
+                      'Already have an account? ',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Raleway',
@@ -143,9 +161,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: widget.showRegisterPage,
+                      onTap: widget.showLoginPage,
                       child: const Text(
-                        'Register now',
+                        'Sign In',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Raleway',

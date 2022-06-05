@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:training_app/auth.dart';
 import 'package:training_app/main_page.dart';
 import 'package:training_app/models/provider/category_provider.dart';
 import 'package:training_app/models/provider/exercises_provider.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
                     if (snapshot.hasData) {
                       return const MainPage();
                     } else {
-                      return const LoginPage();
+                      return const Auth();
                     }
                   },
                 );
