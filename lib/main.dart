@@ -8,6 +8,7 @@ import 'package:training_app/models/provider/category_provider.dart';
 import 'package:training_app/models/provider/exercises_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:training_app/screens/login_page.dart';
+import 'package:training_app/screens/reset_password_page.dart';
 import 'models/provider/workouts_firestore_provider.dart';
 
 void main() async {

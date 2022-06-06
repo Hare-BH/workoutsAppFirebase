@@ -35,6 +35,10 @@ class AuthInputField extends StatelessWidget {
         textAlign: TextAlign.center,
         style: const TextStyle(color: kMainColor, fontSize: 16.0),
         decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: kMainColor, width: 2),
+          ),
           hintText: hintText,
           hintStyle: const TextStyle(
             color: Color(0x85666666),

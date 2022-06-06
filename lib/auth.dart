@@ -11,7 +11,7 @@ class Auth extends StatefulWidget {
 
 class _AuthState extends State<Auth> {
   //show login page first
-  bool showLoginPage = false;
+  bool showLoginPage = true;
 
   void toggleScreens() {
     setState(() {

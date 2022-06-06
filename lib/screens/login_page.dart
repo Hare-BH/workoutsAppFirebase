@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:training_app/constants.dart';
 import 'package:flutter/services.dart';
+import 'package:training_app/screens/reset_password_page.dart';
 import 'package:training_app/widgets/auth_input_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -98,6 +99,30 @@ class _LoginPageState extends State<LoginPage> {
                   hide: true,
                 ),
 
+                ///forgot password
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const ResetPasswordPage();
+                      }));
+                    },
+                    child: const Text(
+                      'Forgot password',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontFamily: 'Raleway',
+                        color: Colors.blueAccent,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+
                 ///
                 ///Login button
                 GestureDetector(
@@ -105,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Container(
                     height: 50,
                     margin: const EdgeInsets.only(
-                        left: 15, right: 15, top: 20, bottom: 30),
+                        left: 15, right: 15, top: 0, bottom: 30),
                     decoration: BoxDecoration(
                         color: kMainColor,
                         borderRadius: BorderRadius.circular(20),
