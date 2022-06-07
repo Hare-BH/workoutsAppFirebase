@@ -17,6 +17,17 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user != null) {
+        Provider.of<WorkoutsFirestoreProvider>(context, listen: false).uid =
+            user.uid;
+      }
+    });
+    super.initState();
+  }
+
   final screens = [
     const HomePage(),
     const HomePage(),
@@ -58,13 +69,15 @@ class _MainPageState extends State<MainPage> {
                           actions: [
                             TextButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
                                 },
                                 child: const Text('Cancel')),
                             TextButton(
                                 onPressed: () {
                                   FirebaseAuth.instance.signOut();
-                                  Navigator.pop(context);
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
                                 },
                                 child: const Text('Sign Out')),
                           ],

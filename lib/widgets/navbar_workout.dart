@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -34,47 +37,59 @@ class NavBarWorkout extends StatelessWidget {
       color: kWhiteBackground,
       height: 60,
       onTap: (index) {
-        index == 0
-            ? Navigator.pop(context)
-            : index == 1
-                ? Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => InProgressPage(
-                              workoutTitle: workoutTitle,
-                              exercises: exercises,
-                            )),
-                  )
-                : {
-                    Provider.of<ExercisesProvider>(context, listen: false)
-                        .updateExercise(exercises),
-                    Provider.of<WorkoutsFirestoreProvider>(context,
-                            listen: false)
-                        .newTitle = workoutTitle,
-                    Provider.of<CategoriesProvider>(context, listen: false)
-                        .selectedCategory = category,
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              EditWorkoutPage(workoutID: workoutID)),
-                    )
-                  };
+        //back
+        if (index == 0) {
+          Navigator.pop(context);
+        }
+
+        ///play
+        if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => InProgressPage(
+                      workoutTitle: workoutTitle,
+                      exercises: exercises,
+                    )),
+          );
+        }
+
+        ///edit
+        if (index == 2) {
+          Provider.of<ExercisesProvider>(context, listen: false)
+              .updateExercise(exercises);
+          Provider.of<WorkoutsFirestoreProvider>(context, listen: false)
+              .newTitle = workoutTitle;
+          Provider.of<CategoriesProvider>(context, listen: false)
+              .selectedCategory = category;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => EditWorkoutPage(workoutID: workoutID)),
+          );
+        }
+        ////share
+        if (index == 3) {}
       },
       items: const [
         FaIcon(
           FontAwesomeIcons.angleLeft,
-          size: 30.0,
+          size: 20.0,
           color: kMainColor,
         ),
         FaIcon(
           FontAwesomeIcons.play,
-          size: 30.0,
+          size: 20.0,
           color: kMainColor,
         ),
         FaIcon(
           FontAwesomeIcons.edit,
-          size: 30.0,
+          size: 20.0,
+          color: kMainColor,
+        ),
+        FaIcon(
+          FontAwesomeIcons.share,
+          size: 20.0,
           color: kMainColor,
         )
       ],

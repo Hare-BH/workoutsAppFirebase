@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
 import 'package:flutter/services.dart';
+import 'package:training_app/models/provider/workouts_firestore_provider.dart';
 import 'package:training_app/widgets/auth_input_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -39,6 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 

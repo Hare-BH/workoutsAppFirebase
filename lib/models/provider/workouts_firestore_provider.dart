@@ -4,13 +4,26 @@ import '../exercise.dart';
 import '../workout.dart';
 
 class WorkoutsFirestoreProvider extends ChangeNotifier {
-  final _firestore = FirebaseFirestore.instance;
-  final _collectionRef = FirebaseFirestore.instance.collection('workouts');
+  //final _firestore = FirebaseFirestore.instance;
+  //final CollectionReference _collectionRef =
+  //    FirebaseFirestore.instance.collection('workouts');
 
-  get firestore => _firestore;
-  get collectionRef => _collectionRef;
-  get snapshotsStream => _firestore.collection('workouts').snapshots();
+  get collectionRef => usersCollection.doc(uid).collection('workouts');
+  get snapshotsStream =>
+      usersCollection.doc(uid).collection('workouts').snapshots();
   String newTitle = 'Workout Title';
+///////
+  final CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+  late String uid;
+
+  void addUser(String username) {
+    usersCollection.doc(uid).set({
+      'username': username,
+    });
+  }
+
+  ///
 
   void addWorkout(String title, String category, List<Exercise> exercises) {
     var dataArray = [];
@@ -23,7 +36,7 @@ class WorkoutsFirestoreProvider extends ChangeNotifier {
       };
       dataArray.add(data);
     }
-    _collectionRef.doc().set({
+    usersCollection.doc(uid).collection('workouts').doc().set({
       'workout_name': title,
       'category': category,
       'exercise_array': dataArray,
@@ -42,7 +55,7 @@ class WorkoutsFirestoreProvider extends ChangeNotifier {
       };
       dataArray.add(data);
     }
-    _collectionRef.doc(workoutID).set({
+    usersCollection.doc(uid).collection('workouts').doc(workoutID).set({
       'workout_name': workout.title,
       'category': workout.category,
       'exercise_array': dataArray,
@@ -51,7 +64,7 @@ class WorkoutsFirestoreProvider extends ChangeNotifier {
   }
 
   void deleteWorkout(String workoutID) {
-    _collectionRef.doc(workoutID).delete();
+    usersCollection.doc(uid).collection('workouts').doc(workoutID).delete();
     notifyListeners();
   }
 
