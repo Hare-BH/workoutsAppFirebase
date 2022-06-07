@@ -28,14 +28,6 @@ class HomePage extends StatelessWidget {
                     style: kHeaderText,
                   ),
                 ),
-                MaterialButton(
-                  onPressed: (() => FirebaseAuth.instance.signOut()),
-                  color: kMainColor,
-                  child: const Text(
-                    'Sign Out',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
               ],
             ),
             const CategoryButtons(),

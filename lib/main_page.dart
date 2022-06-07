@@ -37,49 +37,67 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: CurvedNavigationBar(
           key: NavigationKey.getKey(),
           index: index,
-          animationCurve: Curves.easeInBack,
+          animationCurve: Curves.linearToEaseOut,
           animationDuration: const Duration(milliseconds: 400),
           backgroundColor: color,
-          color: main,
+          buttonBackgroundColor: main,
+          color: color,
           height: 60,
           onTap: (index) => setState(() {
                 index == 2
                     ? {color = kMainColor, main = kWhiteBackground}
                     : {color = kWhiteBackground, main = kMainColor};
-
-                index == 4
-                    ? Provider.of<WorkoutsFirestoreProvider>(context,
-                            listen: false)
-                        .deleteAll()
-                    : null;
-
+                if (index == 4) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Sign Out'),
+                          content:
+                              const Text('Are you sure you want to sign out?'),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Cancel')),
+                            TextButton(
+                                onPressed: () {
+                                  FirebaseAuth.instance.signOut();
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Sign Out')),
+                          ],
+                        );
+                      });
+                }
                 this.index = index;
               }),
           items: [
             FaIcon(
               FontAwesomeIcons.home,
               size: 20.0,
-              color: color,
+              color: index == 0 ? color : main,
             ),
             FaIcon(
               FontAwesomeIcons.search,
               size: 20.0,
-              color: color,
+              color: index == 1 ? color : main,
             ),
             FaIcon(
               FontAwesomeIcons.plus,
               size: 20.0,
-              color: color,
+              color: index == 2 ? color : main,
             ),
             FaIcon(
               FontAwesomeIcons.calendar,
               size: 20.0,
-              color: color,
+              color: index == 3 ? color : main,
             ),
             FaIcon(
-              FontAwesomeIcons.trash,
+              FontAwesomeIcons.signOutAlt,
               size: 20.0,
-              color: color,
+              color: index == 4 ? color : main,
             )
           ]),
     );

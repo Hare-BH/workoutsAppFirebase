@@ -55,11 +55,6 @@ class WorkoutsFirestoreProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteAll() {
-    // _workoutsBox.deleteAll(_workoutsBox.keys);
-    notifyListeners();
-  }
-
   ///////////////
   int exerciseInProgressIndex = 0;
 
