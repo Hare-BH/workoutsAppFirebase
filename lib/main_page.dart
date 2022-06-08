@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:training_app/models/navigation_key.dart';
 import 'package:training_app/screens/home_page.dart';
 import 'package:training_app/screens/add_workout_page.dart';
-import 'package:training_app/screens/login_page.dart';
+import 'package:training_app/screens/shared_workouts.dart';
 import 'constants.dart';
 import 'models/provider/workouts_firestore_provider.dart';
 
@@ -19,12 +19,20 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   void initState() {
+    final provider =
+        Provider.of<WorkoutsFirestoreProvider>(context, listen: false);
+
+    ///saves the user id in provider
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
-        Provider.of<WorkoutsFirestoreProvider>(context, listen: false).uid =
-            user.uid;
+        provider.uid = user.uid;
+        provider.saveUID(user.uid);
       }
     });
+    //if user is null but uid in provider is not assigned then asign it with last known uid on this device
+    if (provider.uid == 'notassigned') {
+      provider.callUID();
+    }
     super.initState();
   }
 
@@ -32,7 +40,7 @@ class _MainPageState extends State<MainPage> {
     const HomePage(),
     const HomePage(),
     const AddWorkoutPage(),
-    const HomePage(),
+    const SharedWorkouts(),
     const HomePage(),
   ];
 
@@ -76,6 +84,10 @@ class _MainPageState extends State<MainPage> {
                             TextButton(
                                 onPressed: () {
                                   FirebaseAuth.instance.signOut();
+                                  Provider.of<WorkoutsFirestoreProvider>(
+                                          context,
+                                          listen: false)
+                                      .deleteUID();
                                   Navigator.of(context, rootNavigator: true)
                                       .pop();
                                 },
@@ -103,7 +115,7 @@ class _MainPageState extends State<MainPage> {
               color: index == 2 ? color : main,
             ),
             FaIcon(
-              FontAwesomeIcons.calendar,
+              FontAwesomeIcons.shareAlt,
               size: 20.0,
               color: index == 3 ? color : main,
             ),

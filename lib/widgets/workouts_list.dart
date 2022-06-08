@@ -67,7 +67,9 @@ class WorkoutCards extends StatelessWidget {
                       workoutID: workoutID,
                     );
                   } else {
-                    return Container();
+                    return const Center(
+                      child: Text('        No workouts'),
+                    );
                   }
                 }
               });
@@ -84,12 +86,14 @@ class WorkoutTileOnTap extends StatelessWidget {
     required this.workoutTitle,
     required this.workoutCategory,
     required this.workoutID,
+    this.isShared = false,
   }) : super(key: key);
 
   final dynamic workoutID;
   final dynamic workoutExercises;
   final dynamic workoutTitle;
   final dynamic workoutCategory;
+  final bool isShared;
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +111,7 @@ class WorkoutTileOnTap extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => WorkoutPage(
+                    isShared: isShared,
                     workoutID: workoutID,
                   )),
         );

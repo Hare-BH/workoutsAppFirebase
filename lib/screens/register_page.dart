@@ -1,9 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:training_app/constants.dart';
 import 'package:flutter/services.dart';
-import 'package:training_app/models/provider/workouts_firestore_provider.dart';
 import 'package:training_app/widgets/auth_input_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -16,6 +15,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   ///controllers
+  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -25,6 +25,11 @@ class _RegisterPageState extends State<RegisterPage> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
+      User? user = FirebaseAuth.instance.currentUser;
+      FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+        'username': _usernameController.text.trim(),
+        'email': _emailController.text.trim(),
+      });
     }
   }
 
@@ -39,6 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -96,6 +102,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
+                ),
+
+                AuthInputField(
+                  controller: _usernameController,
+                  hintText: 'Username',
                 ),
 
                 ///

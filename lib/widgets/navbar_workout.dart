@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +26,7 @@ class NavBarWorkout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late String email;
     return CurvedNavigationBar(
       animationCurve: Curves.easeInBack,
       animationDuration: const Duration(milliseconds: 400),
@@ -69,7 +67,37 @@ class NavBarWorkout extends StatelessWidget {
           );
         }
         ////share
-        if (index == 3) {}
+        if (index == 3) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Share Workout'),
+                  content: TextField(
+                    onChanged: (value) => email = value,
+                    decoration: const InputDecoration(
+                      hintText: 'Enter user email',
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Cancel')),
+                    TextButton(
+                        onPressed: () {
+                          Provider.of<WorkoutsFirestoreProvider>(context,
+                                  listen: false)
+                              .shareWorkout(
+                                  email, workoutTitle, category, exercises);
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Share')),
+                  ],
+                );
+              });
+        }
       },
       items: const [
         FaIcon(

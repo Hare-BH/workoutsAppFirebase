@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:training_app/constants.dart';
 import '../widgets/calender_card.dart';

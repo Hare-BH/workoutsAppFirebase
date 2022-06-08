@@ -13,16 +13,19 @@ class WorkoutPage extends StatelessWidget {
   const WorkoutPage({
     Key? key,
     required this.workoutID,
+    required this.isShared,
   }) : super(key: key);
 
   final String workoutID;
+  final bool isShared;
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
-    CollectionReference workouts =
-        Provider.of<WorkoutsFirestoreProvider>(context).collectionRef;
+    CollectionReference workouts = isShared
+        ? Provider.of<WorkoutsFirestoreProvider>(context).sharedCollectionRef
+        : Provider.of<WorkoutsFirestoreProvider>(context).collectionRef;
 
     return FutureBuilder<DocumentSnapshot>(
       future: workouts.doc(workoutID).get(),
